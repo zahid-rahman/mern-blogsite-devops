@@ -1,9 +1,9 @@
 version: "3"
 services:
   mongo:
-        container_name: mongo_db
+        container_name: zrblog-db
         image: mongo
         volumes:
-          - ./mongo/db:/data/db
+          - ./zrblog_database/db:/data/db
         ports:
           - "27017:27017"
