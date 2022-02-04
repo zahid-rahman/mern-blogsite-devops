@@ -1,0 +1,6 @@
+from node:16.13.2-alpine
+workdir /app/src
+copy ./zrblog-api/package.json .
+run npm install --save
+copy ./zrblog-api .
+cmd ["npm", "start"]

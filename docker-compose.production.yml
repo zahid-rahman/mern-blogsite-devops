@@ -1,0 +1,40 @@
+version: "3"
+services:
+  api:
+    container_name: zrblog-api
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    env_file: ./zrblog-api/.env
+    volumes:
+      - /app/src/node_modules
+      - ./zrblog-api:/app/src
+    ports:
+      - "3001:3001"
+    expose:
+      - 3001
+    depends_on:
+      - mongo
+
+  mongo:
+      container_name: zrblog-db
+      image: mongo
+      volumes:
+        - ./zrblog_database/db:/data/db
+      ports:
+        - "27017:27017"
+  client:
+    container_name: zrblog-client
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    env_file: ./zrblog-client/.env
+    volumes:
+      - /app/src/node_modules
+      - ./zrblog-client:/app/src
+    ports:
+      - "3000:3000"
+    expose:
+      - 3000
